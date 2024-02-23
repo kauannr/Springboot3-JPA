@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.curso.Services.UserService;
 import com.projeto.curso.entities.User;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping(value = "/users")

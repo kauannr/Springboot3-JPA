@@ -1,38 +1,28 @@
 package com.projeto.curso.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_Order")
-public class Order implements Serializable {
+@Table(name = "tb_category")
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Instant date;
-    private int statusOrder;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_Id")
-    private User client;
-
-    public Order(Long id, Instant date, StatusOrder statusOrder, User user) {
+    public Category(Long id, String name) {
         this.id = id;
-        this.date = date;
-        setStatusOrder(statusOrder);
-        this.client = user;
+        this.name = name;
     }
 
-    public Order() {
+    public Category() {
     }
 
     public Long getId() {
@@ -43,26 +33,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Instant getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public User getUser() {
-        return client;
-    }
-
-    public StatusOrder getStatusOrder() {
-        return StatusOrder.valueOf(this.statusOrder);
-    }
-
-    public void setStatusOrder(StatusOrder statusOrder) {
-        if (statusOrder != null) {
-            this.statusOrder = statusOrder.getcode();
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -81,7 +57,7 @@ public class Order implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Order other = (Order) obj;
+        Category other = (Category) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -92,7 +68,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "Order [id=" + getId() + ", date=" + getDate() + ", user=" + getUser() + "]";
+        return "Category [id=" + id + ", name=" + name + "]";
     }
 
 }

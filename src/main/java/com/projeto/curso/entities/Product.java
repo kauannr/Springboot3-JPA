@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -83,7 +82,6 @@ public class Product implements Serializable {
         this.imgURL = imgURL;
     }
 
-    @JsonIgnore
     public Set<Category> getCategories() {
         return categories;
     }

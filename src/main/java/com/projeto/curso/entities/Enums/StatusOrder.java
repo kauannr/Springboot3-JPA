@@ -1,4 +1,4 @@
-package com.projeto.curso.entities;
+package com.projeto.curso.entities.Enums;
 
 public enum StatusOrder {
     WATING_PAYMENT(1),
@@ -19,13 +19,10 @@ public enum StatusOrder {
 
     public static StatusOrder valueOf(int code){
         for (StatusOrder statusOrder : StatusOrder.values()) {
-            
             if (code == statusOrder.getcode()) {
                 return statusOrder;
-            }else{
-                throw new IllegalArgumentException("Código inválido");
             }
         }
-        return null;
+        throw new IllegalAccessError("Erro. Código do enum no valueOf() não encontrado");
     }
 }

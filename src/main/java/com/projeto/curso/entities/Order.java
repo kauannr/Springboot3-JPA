@@ -34,11 +34,11 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order", fetch = FetchType.EAGER)
     private Set<OrderItem> items = new HashSet<>();
 
-    public Order(Long id, Instant date, StatusOrder statusOrder, User user) {
+    public Order(Long id, Instant date, StatusOrder statusOrder, User client) {
         this.id = id;
         this.date = date;
         setStatusOrder(statusOrder);
-        this.client = user;
+        this.client = client;
     }
 
     public Order() {

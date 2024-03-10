@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.projeto.curso.entities.Enums.StatusOrder;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,11 +30,14 @@ public class Order implements Serializable {
     private int statusOrder;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_Id")
+    @JoinColumn(name = "client_Id")
     private User client;
 
     @OneToMany(mappedBy = "id.order", fetch = FetchType.EAGER)
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order(Long id, Instant date, StatusOrder statusOrder, User client) {
         this.id = id;
@@ -76,6 +81,14 @@ public class Order implements Serializable {
         if (statusOrder != null) {
             this.statusOrder = statusOrder.getcode();
         }
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     @Override

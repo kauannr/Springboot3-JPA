@@ -1,3 +1,4 @@
+
 package com.projeto.curso;
 
 import org.springframework.boot.SpringApplication;

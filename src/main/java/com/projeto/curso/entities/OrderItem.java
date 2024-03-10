@@ -1,15 +1,12 @@
 package com.projeto.curso.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projeto.curso.entities.PK.OrderItemPk;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,12 +19,15 @@ public class OrderItem implements Serializable {
     private Integer quantity;
     private Double price;
 
-
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Double getSubTotal() {
+        return getPrice() * getQuantity();
     }
 
     // Manualmente
@@ -44,7 +44,6 @@ public class OrderItem implements Serializable {
         return this.id.getProduct();
     }
 
-    
     public void setProduct(Product product) {
         id.setProduct(product);
     }

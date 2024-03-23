@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projeto.curso.repositories.UserRepository;
+import com.projeto.curso.Services.ServicesExceptions.getException;
 import com.projeto.curso.entities.User;;
 
 @Service
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new getException(id));
     }
 
     public User insertUser(User user) {
@@ -29,5 +30,18 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User updateUser(long id, User newUser) {
+        User oldUser = userRepository.getReferenceById(id);
+        updateData(oldUser, newUser);
+        return userRepository.save(oldUser);
+    }
+
+    // complemento updateUser
+    private static void updateData(User oldUser, User newUser) {
+        oldUser.setName(newUser.getName());
+        oldUser.setEmail(newUser.getEmail());
+        oldUser.setPhone(newUser.getPhone());
     }
 }

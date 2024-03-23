@@ -16,10 +16,10 @@ import com.projeto.curso.entities.Product;
 import com.projeto.curso.entities.User;
 import com.projeto.curso.entities.Enums.StatusOrder;
 import com.projeto.curso.repositories.CategoryRepository;
+import com.projeto.curso.repositories.OrderItemRepository;
 import com.projeto.curso.repositories.OrderRepository;
 import com.projeto.curso.repositories.ProductRepository;
 import com.projeto.curso.repositories.UserRepository;
-import com.projeto.curso.repositories.OrderItemRepository;
 
 @Configuration
 @Profile("test")

@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.projeto.curso.repositories.UserRepository;
+import com.projeto.curso.Services.ServicesExceptions.DatabaseException;
 import com.projeto.curso.Services.ServicesExceptions.getException;
 import com.projeto.curso.entities.User;;
 
@@ -29,7 +31,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User updateUser(long id, User newUser) {

@@ -8,6 +8,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.projeto.curso.repositories.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.projeto.curso.Services.ServicesExceptions.DatabaseException;
 import com.projeto.curso.Services.ServicesExceptions.getException;
 import com.projeto.curso.entities.User;;
@@ -39,9 +42,14 @@ public class UserService {
     }
 
     public User updateUser(long id, User newUser) {
-        User oldUser = userRepository.getReferenceById(id);
-        updateData(oldUser, newUser);
-        return userRepository.save(oldUser);
+        try {
+            User oldUser = userRepository.getReferenceById(id);
+            updateData(oldUser, newUser);
+            return userRepository.save(oldUser);
+
+        } catch (EntityNotFoundException e) {
+            throw new getException(id);
+        }
     }
 
     // complemento updateUser
